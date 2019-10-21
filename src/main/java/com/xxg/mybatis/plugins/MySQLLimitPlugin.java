@@ -32,9 +32,7 @@ public class MySQLLimitPlugin extends PluginAdapter {
   public boolean modelExampleClassGenerated(TopLevelClass topLevelClass,
       IntrospectedTable introspectedTable) {
 
-    PrimitiveTypeWrapper integerWrapper = FullyQualifiedJavaType.getIntInstance()
-        .getPrimitiveTypeWrapper();
-    PrimitiveTypeWrapper longWrapper = new FullyQualifiedJavaType("long").getPrimitiveTypeWrapper();
+    PrimitiveTypeWrapper integerWrapper = FullyQualifiedJavaType.getIntInstance().getPrimitiveTypeWrapper();
 
     Field limit = new Field();
     limit.setName("limit");
@@ -59,19 +57,19 @@ public class MySQLLimitPlugin extends PluginAdapter {
     Field offset = new Field();
     offset.setName("offset");
     offset.setVisibility(JavaVisibility.PRIVATE);
-    offset.setType(longWrapper);
+    offset.setType(integerWrapper);
     topLevelClass.addField(offset);
 
     Method setOffset = new Method();
     setOffset.setVisibility(JavaVisibility.PUBLIC);
     setOffset.setName("setOffset");
-    setOffset.addParameter(new Parameter(longWrapper, "offset"));
+    setOffset.addParameter(new Parameter(integerWrapper, "offset"));
     setOffset.addBodyLine("this.offset = offset;");
     topLevelClass.addMethod(setOffset);
 
     Method getOffset = new Method();
     getOffset.setVisibility(JavaVisibility.PUBLIC);
-    getOffset.setReturnType(longWrapper);
+    getOffset.setReturnType(integerWrapper);
     getOffset.setName("getOffset");
     getOffset.addBodyLine("return offset;");
     topLevelClass.addMethod(getOffset);
